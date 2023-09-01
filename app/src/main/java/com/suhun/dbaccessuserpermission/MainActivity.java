@@ -3,6 +3,7 @@ package com.suhun.dbaccessuserpermission;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
@@ -13,6 +14,8 @@ public class MainActivity extends AppCompatActivity {
     private String tag = MainActivity.class.getSimpleName();
     private TextView resultLog, birthday;
     private EditText idUpdate, idDelete, name, tel;
+    private MySqliteOpenHelper mySqliteOpenHelper;
+    private SQLiteDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +31,11 @@ public class MainActivity extends AppCompatActivity {
         idDelete = findViewById(R.id.lid_cidDeleteInput);
         name = findViewById(R.id.lid_cnameInput);
         tel = findViewById(R.id.lid_ctelInput);
+    }
+
+    private void initDataBase(){
+        mySqliteOpenHelper = new MySqliteOpenHelper(this, "suhunDB", null, 1);
+        db = mySqliteOpenHelper.getWritableDatabase();
     }
 
     public void queryFun(View view){
