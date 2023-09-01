@@ -75,11 +75,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void updateFun(View view){
-
+        ContentValues values = new ContentValues();
+        values.put("cname", name.getText().toString());
+        values.put("ctel", tel.getText().toString());
+        values.put("cbirthday", birthday.getText().toString());
+        db.update("cust", values, "cid = ?", new String[]{idUpdate.getText().toString()});
+        execquery();
+        name.setText("");
+        tel.setText("");
+        birthday.setText("");
     }
 
     public void deleteFun(View view){
-
+        db.delete("cust", "cid = ?", new String[]{idDelete.getText().toString()});
+        execquery();
     }
 
     public void userPermissionCheckFun(View view){
