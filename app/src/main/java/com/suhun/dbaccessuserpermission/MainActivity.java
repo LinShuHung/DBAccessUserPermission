@@ -1,10 +1,14 @@
 package com.suhun.dbaccessuserpermission;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.app.DatePickerDialog;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -92,7 +96,29 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void userPermissionCheckFun(View view){
+        if(!userAlreadyAgree()){
+            requestPermissions(new String[]{Manifest.permission.READ_CONTACTS, Manifest.permission.READ_CALL_LOG, Manifest.permission.MANAGE_EXTERNAL_STORAGE}, 123);
+        }else{
+            initDoThing();
+        }
 
+    }
+
+    private void initDoThing(){
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(requestCode == 123){
+            if(grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED &&
+            grantResults[2] == PackageManager.PERMISSION_GRANTED){
+                initDoThing();
+            }else{
+                finish();
+            }
+        }
     }
 
     public void birthdaySelectFun(View view){
@@ -103,5 +129,15 @@ public class MainActivity extends AppCompatActivity {
             }
         }, 2023, 0, 1);
         dialog.show();
+    }
+
+    private boolean userAlreadyAgree(){
+        boolean result = false;
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED ||
+            ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CALL_LOG) == PackageManager.PERMISSION_GRANTED ||
+            ContextCompat.checkSelfPermission(this, Manifest.permission.MANAGE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
+            result = true;
+        }
+        return result;
     }
 }
