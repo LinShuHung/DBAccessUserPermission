@@ -1,18 +1,214 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainActivity">
-
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="Custom Table"
+        android:textSize="28sp"
+        android:gravity="center_horizontal"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="@color/black"
+        />
+    <TextView
+        android:id="@+id/lid_result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="null"
+        android:textSize="20sp"
+        android:background="#ff0"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Query"
+        android:textAllCaps="false"
+        android:onClick="queryFun"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="#999"
+        />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <TextView
+            android:id="@+id/cidTag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignTop="@id/lid_cidUpdateInput"
+            android:layout_alignBottom="@id/lid_cidUpdateInput"
+            android:text="Id:"
+            android:textSize="16sp"
+            android:gravity="fill"
+            />
+        <EditText
+            android:id="@+id/lid_cidUpdateInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/cidTag"
+            android:layout_alignParentRight="true"
+            android:hint="Please input update data id"
+            android:minHeight="48dp"
+            android:inputType="phone"
+            />
+        <TextView
+            android:id="@+id/cnameTag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cidTag"
+            android:layout_alignParentLeft="true"
+            android:layout_alignTop="@id/lid_cnameInput"
+            android:layout_alignBottom="@id/lid_cnameInput"
+            android:text="Name:"
+            android:textSize="16sp"
+            android:gravity="fill"
+            />
+        <EditText
+            android:id="@+id/lid_cnameInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lid_cidUpdateInput"
+            android:layout_toRightOf="@id/cnameTag"
+            android:layout_alignParentRight="true"
+            android:hint="Please input name"
+            android:minHeight="48dp"
+            />
+        <TextView
+            android:id="@+id/ctelTag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cnameTag"
+            android:layout_alignParentLeft="true"
+            android:layout_alignTop="@id/lid_ctelInput"
+            android:layout_alignBottom="@id/lid_ctelInput"
+            android:text="Tel:"
+            android:textSize="16sp"
+            android:gravity="fill"
+            />
+        <EditText
+            android:id="@+id/lid_ctelInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lid_cnameInput"
+            android:layout_toRightOf="@id/ctelTag"
+            android:layout_alignParentRight="true"
+            android:minHeight="48dp"
+            android:hint="Please input tel"
+            android:inputType="phone"
+            />
+        <TextView
+            android:id="@+id/cbirthdayTag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ctelTag"
+            android:text="Birthday:"
+            android:textSize="16sp"
+            android:minHeight="48dp"
+            android:gravity="fill"
+            />
+        <TextView
+            android:id="@+id/lid_birthdayInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lid_ctelInput"
+            android:layout_toRightOf="@id/cbirthdayTag"
+            android:layout_alignParentRight="true"
+            android:text="OnClick to select"
+            android:textSize="16sp"
+            android:gravity="fill"
+            android:minHeight="48dp"
+            android:onClick="birthdaySelectFun"
+            />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Insert"
+            android:textAllCaps="false"
+            android:layout_margin="3dp"
+            android:onClick="insertFun"
+            />
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Update"
+            android:textAllCaps="false"
+            android:layout_margin="3dp"
+            android:onClick="updateFun"
+            />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="#999"
+        />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <TextView
+            android:id="@+id/didTag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignTop="@id/lid_cidDeleteInput"
+            android:layout_alignBottom="@id/lid_cidDeleteInput"
+            android:text="Delete id:"
+            android:textSize="16sp"
+            android:gravity="fill"
+            />
+        <EditText
+            android:id="@+id/lid_cidDeleteInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/didTag"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:hint="Please input delete id"
+            android:minHeight="48dp"
+            android:inputType="phone"
+            />
+    </RelativeLayout>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Delete"
+        android:textAllCaps="false"
+        android:onClick="deleteFun"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="#999"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="User permission Check"
+        android:textAllCaps="false"
+        android:onClick="userPermissionCheckFun"
+        />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>
