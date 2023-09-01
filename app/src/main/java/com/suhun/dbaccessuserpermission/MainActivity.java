@@ -3,8 +3,12 @@ package com.suhun.dbaccessuserpermission;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -22,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
+        initDataBase();
     }
 
     private void initView(){
@@ -34,16 +39,39 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initDataBase(){
-        mySqliteOpenHelper = new MySqliteOpenHelper(this, "suhunDB", null, 1);
+        mySqliteOpenHelper = new MySqliteOpenHelper(this, "suhunDataBase", null, 1);
         db = mySqliteOpenHelper.getWritableDatabase();
     }
 
     public void queryFun(View view){
+        execquery();
+    }
 
+    private void execquery(){
+        StringBuffer stringBuffer = new StringBuffer();
+        Cursor cursor = db.query("cust", null, null, null, null, null, null);
+
+        while (cursor.moveToNext()){
+            String id = cursor.getString(cursor.getColumnIndexOrThrow("cid"));
+            String name = cursor.getString(cursor.getColumnIndexOrThrow("cname"));
+            String tel = cursor.getString(cursor.getColumnIndexOrThrow("ctel"));
+            String birthday = cursor.getString(cursor.getColumnIndexOrThrow("cbirthday"));
+
+            stringBuffer.append(String.format("%s:%s:%s:%s\n", id, name, tel, birthday));
+        }
+        resultLog.setText(stringBuffer);
     }
 
     public void insertFun(View view){
-
+        ContentValues values = new ContentValues();
+        values.put("cname", name.getText().toString());
+        values.put("ctel", tel.getText().toString());
+        values.put("cbirthday", birthday.getText().toString());
+        db.insert("cust", null, values);
+        execquery();
+        name.setText("");
+        tel.setText("");
+        birthday.setText("");
     }
 
     public void updateFun(View view){

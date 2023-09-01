@@ -7,15 +7,16 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 public class MySqliteOpenHelper extends SQLiteOpenHelper {
-    private final String createTable = "CREATE TABLE cust (cid INTEGER　PRIMARY KEY　AUTOINCREMENT, " +
+    private final String createCustTable = "CREATE TABLE cust (cid INTEGER PRIMARY KEY AUTOINCREMENT, " +
             "cname TEXT, ctel TEXT, cbirthday DATE)";
+
     public MySqliteOpenHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(createTable);
+        db.execSQL(createCustTable);
     }
 
     @Override
